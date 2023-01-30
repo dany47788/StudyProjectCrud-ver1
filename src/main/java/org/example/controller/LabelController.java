@@ -12,10 +12,6 @@ public class LabelController {
         this.labelService = labelService;
     }
 
-    public boolean isExist(String name) {
-        return labelService.isExistByName(name);
-    }
-
     public LabelDto create(LabelDto newLabelDto) {
         return labelService.create(newLabelDto);
     }

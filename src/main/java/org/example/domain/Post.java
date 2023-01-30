@@ -2,7 +2,6 @@ package org.example.domain;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.example.domain.enums.PostStatus;
 
 import java.time.LocalDateTime;
@@ -22,7 +21,7 @@ public class Post {
 
     public Post(Integer id, LocalDateTime created, LocalDateTime updated,
                 Integer writerId, String content, PostStatus postStatus) {
-        this(id,created, updated, writerId, content, postStatus, new ArrayList<>());
+        this(id, created, updated, writerId, content, postStatus, new ArrayList<>());
     }
 
     public Post(Integer id, LocalDateTime created, LocalDateTime updated, Integer writerId,

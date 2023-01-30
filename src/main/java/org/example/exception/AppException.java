@@ -1,9 +1,9 @@
 package org.example.exception;
 
-import org.example.model.AppErrorCode;
+import org.example.model.AppStatusCode;
 
 public class AppException extends RuntimeException {
-    public AppException(AppErrorCode errorCode) {
+    public AppException(AppStatusCode errorCode) {
         super(errorCode.getMessage());
     }
 }

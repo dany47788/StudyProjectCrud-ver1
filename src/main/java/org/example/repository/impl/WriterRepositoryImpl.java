@@ -1,7 +1,9 @@
 package org.example.repository.impl;
 
+import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Writer;
-import org.example.exception.NotFoundException;
+import org.example.exception.AppException;
+import org.example.model.AppStatusCode;
 import org.example.repository.WriterRepository;
 import org.example.utils.DbConnection.ConnectionPool;
 
@@ -10,11 +12,11 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class WriterRepositoryImpl implements WriterRepository {
 
     @Override
     public List<Writer> findAll() {
-
         var sql = "SELECT * FROM Writer";
         ArrayList<Writer> writers = new ArrayList<>();
 
@@ -23,16 +25,16 @@ public class WriterRepositoryImpl implements WriterRepository {
             var resultSet = preparedStatement.executeQuery();
 
             while (resultSet.next()) {
-                writers.add(new Writer(
-                    resultSet.getInt("id"),
-                    resultSet.getString("firstName"),
-                    resultSet.getString("lastName"),
-                    new ArrayList<>()));
+                writers.add(
+                    Writer.builder()
+                        .id(resultSet.getInt("id"))
+                        .firstName(resultSet.getString("firstName"))
+                        .lastName(resultSet.getString("lastName"))
+                        .build());
             }
-
             return writers;
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -49,7 +51,6 @@ public class WriterRepositoryImpl implements WriterRepository {
             var resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-
                 return new Writer(
                     resultSet.getInt("id"),
                     resultSet.getString("firstName"),
@@ -57,15 +58,13 @@ public class WriterRepositoryImpl implements WriterRepository {
                     new ArrayList<>());
             }
             return null;
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
     @Override
     public Writer create(Writer entity) {
-
         String sql = "INSERT INTO Writer (firstName, lastName) VALUES (?, ?)";
         Integer writerId;
 
@@ -76,26 +75,26 @@ public class WriterRepositoryImpl implements WriterRepository {
             preparedStatement.setString(2, entity.getFirstName());
             var affectedRows = preparedStatement.executeUpdate();
 
-            if (affectedRows == 0)
-                throw new SQLException("Creation error.");
-
+            if (affectedRows == 0) {
+                log.info("Error while creating");
+                throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            }
             try (var keys = preparedStatement.getGeneratedKeys()) {
                 if (keys.next()) {
                     writerId = keys.getInt(1);
-                } else
-                    throw new SQLException("Key wasn't generated!");
+                } else {
+                    log.info("key have not generated");
+                    throw new AppException(AppStatusCode.SQL_EXCEPTION);
+                }
             }
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
-
         return new Writer(writerId, entity.getFirstName(), entity.getLastName(), entity.getPosts());
     }
 
     @Override
     public Writer update(Writer entity) {
-
         var sql = "UPDATE Writer SET lastName = ?, firstName = ?  WHERE id = ?";
 
         try (var connection = ConnectionPool.getDataSource().getConnection();
@@ -105,17 +104,14 @@ public class WriterRepositoryImpl implements WriterRepository {
             preparedStatement.setString(2, entity.getFirstName());
             preparedStatement.setInt(3, entity.getId());
             preparedStatement.execute();
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
-
         return entity;
     }
 
     @Override
     public void deleteById(Integer id) {
-
         var sql = "DELETE FROM Writer WHERE id = ?";
 
         try (var connection = ConnectionPool.getDataSource().getConnection();
@@ -123,9 +119,8 @@ public class WriterRepositoryImpl implements WriterRepository {
 
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 }

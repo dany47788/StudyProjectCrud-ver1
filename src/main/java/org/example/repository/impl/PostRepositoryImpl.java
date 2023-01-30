@@ -4,8 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Post;
 import org.example.domain.enums.PostStatus;
 import org.example.exception.AppException;
-import org.example.exception.NotFoundException;
-import org.example.model.AppErrorCode;
+import org.example.model.AppStatusCode;
 import org.example.repository.PostRepository;
 import org.example.utils.DbConnection.ConnectionPool;
 
@@ -43,7 +42,7 @@ public class PostRepositoryImpl implements PostRepository {
             }
             return posts;
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -69,7 +68,7 @@ public class PostRepositoryImpl implements PostRepository {
             }
             return null;
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -93,18 +92,18 @@ public class PostRepositoryImpl implements PostRepository {
 
             if (affectedRows == 0) {
                 log.info("Error while creating");
-                throw new AppException(AppErrorCode.SQL_EXCEPTION);
+                throw new AppException(AppStatusCode.SQL_EXCEPTION);
             }
             try (ResultSet keys = preparedStatement.getGeneratedKeys()) {
                 if (keys.next()) {
                     postId = keys.getInt(1);
                 } else {
                     log.info("key have not generated");
-                    throw new AppException(AppErrorCode.SQL_EXCEPTION);
+                    throw new AppException(AppStatusCode.SQL_EXCEPTION);
                 }
             }
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
         return Post.builder()
             .id(postId)
@@ -131,7 +130,7 @@ public class PostRepositoryImpl implements PostRepository {
             preparedStatement.setInt(5, entity.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
         return entity;
     }
@@ -146,7 +145,7 @@ public class PostRepositoryImpl implements PostRepository {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -174,7 +173,7 @@ public class PostRepositoryImpl implements PostRepository {
             }
             return posts;
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -202,7 +201,7 @@ public class PostRepositoryImpl implements PostRepository {
             }
             return posts;
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 }

@@ -2,7 +2,6 @@ package org.example.domain;
 
 import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 import org.example.dto.PostDto;
 
 import java.util.ArrayList;

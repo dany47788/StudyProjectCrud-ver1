@@ -6,6 +6,8 @@ import org.example.dto.WriterDto;
 import org.example.dto.mapper.PostDtoMapper;
 import org.example.dto.mapper.WriterDtoMapper;
 import org.example.dto.mapper.WriterMapper;
+import org.example.exception.NotFoundException;
+import org.example.model.AppStatusCode;
 import org.example.repository.impl.PostRepositoryImpl;
 import org.example.repository.impl.WriterRepositoryImpl;
 
@@ -22,35 +24,29 @@ public class WriterService {
     private final WriterMapper writerMapper;
 
     public List<WriterDto> findAll() {
-
         return writerRepositoryImpl.findAll().stream()
             .map(writerDtoMapper::map)
             .toList();
     }
 
     public WriterDto findById(Integer id) {
-
         if (id == null) {
-
             return null;
         }
+        try {
+            var writerDto = writerDtoMapper.map(writerRepositoryImpl.findById(id));
 
-        var writerDto = writerDtoMapper.map(writerRepositoryImpl.findById(id));
+            writerDto.setPosts(postRepositoryImpl.findByWriterId(id).stream()
+                .map(postDtoMapper::map)
+                .toList());
 
-        writerDto.setPosts(postRepositoryImpl.findByWriterId(id).stream()
-            .map(postDtoMapper::map)
-            .toList());
-
-        return writerDto;
+            return writerDto;
+        } catch (NullPointerException e) {
+            throw new NotFoundException(AppStatusCode.NOT_FOUND_EXCEPTION);
+        }
     }
 
     public WriterDto create(WriterDto writerDto) {
-
-        if (writerDto == null) {
-
-            return null;
-        }
-
         writerRepositoryImpl.create(writerMapper.map(writerDto));
 
         log.info("{} - created.", writerDto);
@@ -59,12 +55,6 @@ public class WriterService {
     }
 
     public WriterDto update(WriterDto writerDto) {
-
-        if (writerDto == null) {
-
-            return null;
-        }
-
         writerRepositoryImpl.update(writerMapper.map(writerDto));
 
         log.info("{} - updated.", writerDto);
@@ -73,10 +63,6 @@ public class WriterService {
     }
 
     public void deleteById(Integer id) {
-
-        postRepositoryImpl.findByWriterId(id).stream().map(postDtoMapper::map)
-            .forEach(e -> postRepositoryImpl.deleteById(e.getId()));
-
         writerRepositoryImpl.deleteById(id);
 
         log.info("Writer with id = {} - deleted with all his posts.", id);

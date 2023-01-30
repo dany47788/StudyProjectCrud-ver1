@@ -6,6 +6,8 @@ import org.example.dto.PostDto;
 import org.example.dto.mapper.LabelDtoMapper;
 import org.example.dto.mapper.PostDtoMapper;
 import org.example.dto.mapper.PostMapper;
+import org.example.exception.NotFoundException;
+import org.example.model.AppStatusCode;
 import org.example.repository.impl.LabelRepositoryImpl;
 import org.example.repository.impl.PostRepositoryImpl;
 
@@ -21,35 +23,29 @@ public class PostService {
     private final PostMapper postMapper;
 
     public List<PostDto> findAll() {
-
         return postRepositoryImpl.findAll().stream()
             .map(postDtoMapper::map)
             .toList();
     }
 
     public PostDto findById(Integer id) {
-
         if (id == null) {
-
             return null;
         }
+        try {
+            var postDto = postDtoMapper.map(postRepositoryImpl.findById(id));
 
-        var postDto = postDtoMapper.map(postRepositoryImpl.findById(id));
+            postDto.setLabels(labelRepositoryImpl.findByPostId(id).stream()
+                .map(labelDtoMapper::map)
+                .toList());
 
-        postDto.setLabels(labelRepositoryImpl.findByPostId(id).stream()
-            .map(labelDtoMapper::map)
-            .toList());
-
-        return postDto;
+            return postDto;
+        } catch (NullPointerException e) {
+            throw new NotFoundException(AppStatusCode.NOT_FOUND_EXCEPTION);
+        }
     }
 
     public PostDto create(PostDto postDto) {
-
-        if (postDto == null) {
-
-            return null;
-        }
-
         postRepositoryImpl.create(postMapper.map(postDto));
 
         log.info("{} - created.", postDto);
@@ -58,12 +54,6 @@ public class PostService {
     }
 
     public PostDto update(PostDto postDto) {
-
-        if (postDto == null) {
-
-            return null;
-        }
-
         postRepositoryImpl.update(postMapper.map(postDto));
 
         log.info("Post with id = {} - updated.", postDto.getId());
@@ -72,7 +62,6 @@ public class PostService {
     }
 
     public void deleteById(Integer id) {
-
         postRepositoryImpl.deleteById(id);
 
         log.info("Post with id = {} - deleted.", id);

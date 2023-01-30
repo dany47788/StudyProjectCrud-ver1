@@ -3,7 +3,7 @@ package org.example.repository.impl;
 import lombok.extern.slf4j.Slf4j;
 import org.example.domain.Label;
 import org.example.exception.AppException;
-import org.example.model.AppErrorCode;
+import org.example.model.AppStatusCode;
 import org.example.repository.LabelRepository;
 import org.example.utils.DbConnection.ConnectionPool;
 
@@ -30,11 +30,11 @@ public class LabelRepositoryImpl implements LabelRepository {
                     Label.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
-                    .build());
+                        .build());
             }
             return labels;
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -57,7 +57,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             }
             return null;
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -75,18 +75,18 @@ public class LabelRepositoryImpl implements LabelRepository {
 
             if (affectedRows == 0) {
                 log.info("Error while creating");
-                throw new AppException(AppErrorCode.SQL_EXCEPTION);
+                throw new AppException(AppStatusCode.SQL_EXCEPTION);
             }
             try (ResultSet keys = preparedStatement.getGeneratedKeys()) {
                 if (keys.next()) {
                     id = keys.getInt(1);
                 } else {
                     log.info("key have not generated");
-                    throw new AppException(AppErrorCode.SQL_EXCEPTION);
+                    throw new AppException(AppStatusCode.SQL_EXCEPTION);
                 }
             }
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
         return new Label(id, entity.getName(), new ArrayList<>());
     }
@@ -102,7 +102,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             preparedStatement.setInt(2, entity.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
         return entity;
     }
@@ -117,7 +117,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             stmtDeleteLabel.setInt(1, id);
             stmtDeleteLabel.execute();
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -141,7 +141,7 @@ public class LabelRepositoryImpl implements LabelRepository {
                 return null;
             }
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 
@@ -159,13 +159,13 @@ public class LabelRepositoryImpl implements LabelRepository {
             while (resultSet.next()) {
                 labels.add(
                     Label.builder()
-                    .id(resultSet.getInt("id"))
-                    .name(resultSet.getString("name"))
-                    .build());
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .build());
             }
             return labels;
         } catch (SQLException e) {
-            throw new AppException(AppErrorCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
     }
 }

@@ -31,14 +31,13 @@ public class PostRepositoryImpl implements PostRepository {
 
             while (resultSet.next()) {
                 posts.add(
-                    Post.builder()
-                        .id(resultSet.getInt("id"))
-                        .updated(resultSet.getTimestamp("updated").toLocalDateTime())
-                        .created(resultSet.getTimestamp("created").toLocalDateTime())
-                        .writerId(resultSet.getInt("writer_id"))
-                        .content(resultSet.getString("content"))
-                        .postStatus(PostStatus.valueOf(resultSet.getString("status")))
-                        .build());
+                    new Post(
+                        resultSet.getInt("id"),
+                        resultSet.getTimestamp("created").toLocalDateTime(),
+                        resultSet.getTimestamp("updated").toLocalDateTime(),
+                        resultSet.getInt("writer_id"),
+                        resultSet.getString("content"),
+                        PostStatus.valueOf(resultSet.getString("status"))));
             }
             return posts;
         } catch (SQLException e) {
@@ -57,14 +56,13 @@ public class PostRepositoryImpl implements PostRepository {
             ResultSet resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-                return Post.builder()
-                    .id(resultSet.getInt("id"))
-                    .updated(resultSet.getTimestamp("updated").toLocalDateTime())
-                    .created(resultSet.getTimestamp("created").toLocalDateTime())
-                    .writerId(resultSet.getInt("writer_id"))
-                    .content(resultSet.getString("content"))
-                    .postStatus(PostStatus.valueOf(resultSet.getString("status")))
-                    .build();
+                return new Post(
+                    resultSet.getInt("id"),
+                    resultSet.getTimestamp("created").toLocalDateTime(),
+                    resultSet.getTimestamp("updated").toLocalDateTime(),
+                    resultSet.getInt("writer_id"),
+                    resultSet.getString("content"),
+                    PostStatus.valueOf(resultSet.getString("status")));
             }
             return null;
         } catch (SQLException e) {
@@ -152,7 +150,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> findByLabelId(Integer labelId) {
         var sql = "SELECT Post.* FROM Post JOIN PostLabel ON PostLabel.post_id = Post.id WHERE PostLabel.label_id = ?";
-        ArrayList<Post> posts = new ArrayList<>();
+        var posts = new ArrayList<Post>();
 
         try (var connection = ConnectionPool.getDataSource().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
@@ -162,14 +160,13 @@ public class PostRepositoryImpl implements PostRepository {
 
             while (resultSet.next()) {
                 posts.add(
-                    Post.builder()
-                        .id(resultSet.getInt("id"))
-                        .updated(resultSet.getTimestamp("updated").toLocalDateTime())
-                        .created(resultSet.getTimestamp("created").toLocalDateTime())
-                        .writerId(resultSet.getInt("writer_id"))
-                        .content(resultSet.getString("content"))
-                        .postStatus(PostStatus.valueOf(resultSet.getString("status")))
-                        .build());
+                    new Post(
+                        resultSet.getInt("id"),
+                        resultSet.getTimestamp("updated").toLocalDateTime(),
+                        resultSet.getTimestamp("created").toLocalDateTime(),
+                        resultSet.getInt("writer_id"),
+                        resultSet.getString("content"),
+                        PostStatus.valueOf(resultSet.getString("status"))));
             }
             return posts;
         } catch (SQLException e) {
@@ -180,7 +177,7 @@ public class PostRepositoryImpl implements PostRepository {
     @Override
     public List<Post> findByWriterId(Integer writerId) {
         var sql = "SELECT Post.* FROM Post JOIN Writer ON Writer.id = Post.writer_id WHERE Writer.id = ?";
-        ArrayList<Post> posts = new ArrayList<>();
+        var posts = new ArrayList<Post>();
 
         try (var connection = ConnectionPool.getDataSource().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
@@ -190,14 +187,13 @@ public class PostRepositoryImpl implements PostRepository {
 
             while (resultSet.next()) {
                 posts.add(
-                    Post.builder()
-                        .id(resultSet.getInt("id"))
-                        .updated(resultSet.getTimestamp("updated").toLocalDateTime())
-                        .created(resultSet.getTimestamp("created").toLocalDateTime())
-                        .writerId(resultSet.getInt("writer_id"))
-                        .content(resultSet.getString("content"))
-                        .postStatus(PostStatus.valueOf(resultSet.getString("status")))
-                        .build());
+                    new Post(
+                        resultSet.getInt("id"),
+                        resultSet.getTimestamp("updated").toLocalDateTime(),
+                        resultSet.getTimestamp("created").toLocalDateTime(),
+                        resultSet.getInt("writer_id"),
+                        resultSet.getString("content"),
+                        PostStatus.valueOf(resultSet.getString("status"))));
             }
             return posts;
         } catch (SQLException e) {

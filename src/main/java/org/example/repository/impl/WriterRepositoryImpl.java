@@ -18,7 +18,7 @@ public class WriterRepositoryImpl implements WriterRepository {
     @Override
     public List<Writer> findAll() {
         var sql = "SELECT * FROM Writer";
-        ArrayList<Writer> writers = new ArrayList<>();
+        var writers = new ArrayList<Writer>();
 
         try (var connection = ConnectionPool.getDataSource().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
@@ -26,11 +26,10 @@ public class WriterRepositoryImpl implements WriterRepository {
 
             while (resultSet.next()) {
                 writers.add(
-                    Writer.builder()
-                        .id(resultSet.getInt("id"))
-                        .firstName(resultSet.getString("firstName"))
-                        .lastName(resultSet.getString("lastName"))
-                        .build());
+                    new Writer(
+                        resultSet.getInt("id"),
+                        resultSet.getString("firstName"),
+                        resultSet.getString("lastName")));
             }
             return writers;
         } catch (SQLException e) {
@@ -40,22 +39,19 @@ public class WriterRepositoryImpl implements WriterRepository {
 
     @Override
     public Writer findById(Integer id) {
-
         String sql = "SELECT Writer.* FROM Writer WHERE Writer.id = ?";
 
         try (var connection = ConnectionPool.getDataSource().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
 
             preparedStatement.setInt(1, id);
-
             var resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
                 return new Writer(
                     resultSet.getInt("id"),
                     resultSet.getString("firstName"),
-                    resultSet.getString("lastName"),
-                    new ArrayList<>());
+                    resultSet.getString("lastName"));
             }
             return null;
         } catch (SQLException e) {
@@ -90,7 +86,12 @@ public class WriterRepositoryImpl implements WriterRepository {
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
-        return new Writer(writerId, entity.getFirstName(), entity.getLastName(), entity.getPosts());
+        return Writer.builder()
+            .id(writerId)
+            .firstName(entity.getFirstName())
+            .lastName(entity.getLastName())
+            .posts(entity.getPosts())
+            .build();
     }
 
     @Override

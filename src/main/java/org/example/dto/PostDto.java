@@ -7,10 +7,10 @@ import lombok.NoArgsConstructor;
 import org.example.domain.enums.PostStatus;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @AllArgsConstructor
-@NoArgsConstructor
 @Data
 @Builder
 public class PostDto {
@@ -21,4 +21,8 @@ public class PostDto {
     private String content;
     private PostStatus postStatus;
     private List<LabelDto> labels;
+
+    public PostDto(Integer id, Integer writerId, LocalDateTime created, LocalDateTime updated, String content, PostStatus postStatus) {
+        this(id, writerId, created, updated, content, postStatus, new ArrayList<>());
+    }
 }

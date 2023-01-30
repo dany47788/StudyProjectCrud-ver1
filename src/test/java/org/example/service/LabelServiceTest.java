@@ -52,22 +52,23 @@ public class LabelServiceTest {
     @Test
     void testIFindById_Found() {
         var expectedLabel = new Label(10, "test", new ArrayList<>());
-        List<Post> expectedPosts = new ArrayList<>();
+        var expectedPosts = new ArrayList<Post>();
 
         expectedPosts.add(new Post(
             1, LocalDateTime.now(), LocalDateTime.now(), 1,
-            "123", PostStatus.ACTIVE, new ArrayList<>()));
+            "123", PostStatus.ACTIVE));
 
-        given(labelRepository.findById(10)).willReturn(expectedLabel);
+        given(labelRepository.findById(any(Integer.class))).willReturn(expectedLabel);
 
-        given(postRepository.findByLabelId(10)).willReturn(expectedPosts);
+        given(postRepository.findByLabelId(any(Integer.class))).willReturn(expectedPosts);
 
-        LabelDto expectedResult = labelDtoMapper.map(expectedLabel);
+        var expectedResult = labelDtoMapper.map(expectedLabel);
+
         expectedResult.setPosts(expectedPosts.stream()
             .map(postDtoMapper::map)
             .toList());
 
-        LabelDto returnedDto = labelService.findById(10);
+        var returnedDto = labelService.findById(any(Integer.class));
 
         Assertions.assertEquals(expectedResult.getId(), returnedDto.getId());
         Assertions.assertEquals(expectedResult.getName(), returnedDto.getName());
@@ -76,20 +77,14 @@ public class LabelServiceTest {
 
     @Test
     void testFindById_NotFound() {
-
         given(labelRepository.findById(any(Integer.class))).willReturn(null);
 
-        assertThrows(NotFoundException.class, () -> {
-            labelService.findById(10);
-        });
+        assertThrows(NotFoundException.class, () -> labelService.findById(any(Integer.class)));
     }
 
     @Test
     void testFindById_Null() {
-
-        LabelDto result = labelService.findById(null);
-
-        assertNull(result);
+        assertThrows(NotFoundException.class, () -> labelService.findById(null));
     }
 
     @Test
@@ -98,17 +93,19 @@ public class LabelServiceTest {
 
         given(labelRepository.findByName("test")).willReturn(labelMapper.map(expectedDto));
 
-        List<PostDto> expectedPosts = new ArrayList<>();
+        var expectedPosts = new ArrayList<PostDto>();
+
         expectedPosts.add(new PostDto(
             1, 1, LocalDateTime.now(), LocalDateTime.now(),
-            "123", PostStatus.ACTIVE, new ArrayList<>()));
+            "123", PostStatus.ACTIVE));
 
         expectedDto.setPosts(expectedPosts);
 
-        given(postRepository.findByLabelId(any(Integer.class))).willReturn(expectedPosts.stream()
+        given(postRepository.findByLabelId(any(Integer.class)))
+            .willReturn(expectedPosts.stream()
             .map(postMapper::map).toList());
 
-        LabelDto result = labelService.findByName("test");
+        var result = labelService.findByName("test");
 
         Assertions.assertEquals(expectedDto.getId(), result.getId());
         Assertions.assertEquals(expectedDto.getName(), result.getName());
@@ -117,7 +114,6 @@ public class LabelServiceTest {
 
     @Test
     void testFindByName_NotFound() {
-
         given(labelRepository.findByName("test")).willReturn(null);
 
         assertThrows(NotFoundException.class, () -> labelService.findByName("test"));
@@ -125,65 +121,63 @@ public class LabelServiceTest {
 
     @Test
     void testFindByName_Null() {
-
-        LabelDto result = labelService.findByName(null);
-
-        assertNull(result);
+        assertThrows(NotFoundException.class, () -> labelService.findByName(null));
     }
 
     @Test
     void testFindAll() {
+        var labels = new ArrayList<Label>();
 
-        //TODO: почему стабишь пустой список? надо стабить заполненный список ~ 2-3 элемента, иначе какой смысл в этом тесте?
-        given(labelRepository.findAll()).willReturn(new ArrayList<>());
+        for (int i = 1; i < 4; i++) {
+            labels.add(new Label(i, "test"+i));
+        }
+        given(labelRepository.findAll()).willReturn(labels);
 
-        List<LabelDto> result = labelService.findAll();
-        assertEquals(new ArrayList<>(), result);
+        var result = labelService.findAll();
+        assertEquals(labels.stream()
+            .map(labelDtoMapper::map)
+            .toList(), result);
     }
 
     @Test
     void create() {
+        var inputLabelDto = LabelDto.builder()
+            .name("test")
+            .build();
 
-        var labelDto = new LabelDto(1, "test", new ArrayList<>());
+        var extendedResult = Label.builder()
+            .id(1)
+            .name(inputLabelDto.getName())
+            .build();
 
-        Label extendedResult = labelMapper.map(labelDto);
+        given(labelRepository.create(any())).willReturn(extendedResult);
 
-        //TODO: вместо labelRepository.create(extendedResult)
-        // используется labelRepository.create(any())
-        // а иначе ты создаешь expected и возвращаешь expected 😀
-        // и второе, создаешь ты лэйбл без id, а получаешь уже с id, это наверное нужно проверить?
-        given(labelRepository.create(extendedResult)).willReturn(extendedResult);
+        var result = labelService.create(inputLabelDto);
 
-        LabelDto result = labelService.create(labelDto);
-
-        assertEquals(labelDto, result);
+        assertEquals(inputLabelDto.getName(), result.getName());
+        assertEquals(inputLabelDto.getPosts(), result.getPosts());
+        assertNotSame(inputLabelDto.getId(), result.getId());
+        assertNotNull(result.getId());
     }
 
     @Test
     void create_null() {
-
-        LabelDto result = labelService.create(null);
-
-        assertNull(result);
+        assertThrows(NullPointerException.class, () -> labelService.create(null));
     }
 
     @Test
     void delete() {
-        assertDoesNotThrow(() -> {
-            labelService.deleteById(any(Integer.class));
-        });
+        assertDoesNotThrow(() -> labelService.deleteById(any(Integer.class)));
     }
 
     @Test
     void update() {
-
-        var labelDto = new LabelDto(1, "test", new ArrayList<>());
-
-        Label extendedResult = labelMapper.map(labelDto);
+        var labelDto = new LabelDto(1, "test");
+        var extendedResult = labelMapper.map(labelDto);
 
         given(labelRepository.update(extendedResult)).willReturn(extendedResult);
 
-        LabelDto result = labelService.update(labelDto);
+        var result = labelService.update(labelDto);
 
         assertEquals(labelDto, result);
     }

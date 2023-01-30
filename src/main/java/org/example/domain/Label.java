@@ -1,12 +1,15 @@
 package org.example.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 import org.example.dto.PostDto;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @Builder
 @Data
 public class Label {
@@ -16,11 +19,5 @@ public class Label {
 
     public Label(Integer id, String name) {
         this(id, name, new ArrayList<>());
-    }
-
-    public Label(Integer id, String name, List<PostDto> posts) {
-        this.id = id;
-        this.name = name;
-        this.posts = posts;
     }
 }

@@ -18,7 +18,7 @@ public class LabelRepositoryImpl implements LabelRepository {
     @Override
     public List<Label> findAll() {
         var sql = "SELECT * FROM Label";
-        List<Label> labels = new ArrayList<>();
+        var labels = new ArrayList<Label>();
 
         try (var connection = ConnectionPool.getDataSource().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
@@ -27,10 +27,8 @@ public class LabelRepositoryImpl implements LabelRepository {
 
             while (resultSet.next()) {
                 labels.add(
-                    Label.builder()
-                        .id(resultSet.getInt("id"))
-                        .name(resultSet.getString("name"))
-                        .build());
+                    new Label(resultSet.getInt("id"),
+                    resultSet.getString("name")));
             }
             return labels;
         } catch (SQLException e) {
@@ -49,11 +47,8 @@ public class LabelRepositoryImpl implements LabelRepository {
             var resultSet = preparedStatement.executeQuery();
 
             if (resultSet.next()) {
-
-                return Label.builder()
-                    .id(resultSet.getInt("id"))
-                    .name(resultSet.getString("name"))
-                    .build();
+                return new Label(resultSet.getInt("id"),
+                    resultSet.getString("name"));
             }
             return null;
         } catch (SQLException e) {
@@ -88,7 +83,11 @@ public class LabelRepositoryImpl implements LabelRepository {
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION);
         }
-        return new Label(id, entity.getName(), new ArrayList<>());
+        return Label.builder()
+            .id(id)
+            .name(entity.getName())
+            .posts(entity.getPosts())
+            .build();
     }
 
     @Override
@@ -135,8 +134,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             if (resultSet.next()) {
                 return new Label(
                     resultSet.getInt("id"),
-                    resultSet.getString("name"),
-                    new ArrayList<>());
+                    resultSet.getString("name"));
             } else {
                 return null;
             }
@@ -147,7 +145,7 @@ public class LabelRepositoryImpl implements LabelRepository {
 
     public List<Label> findByPostId(Integer postId) {
         var sql = "SELECT Label.* FROM Label JOIN PostLabel ON PostLabel.label_id = Label.id WHERE PostLabel.Post_id = ?";
-        ArrayList<Label> labels = new ArrayList<>();
+        var labels = new ArrayList<Label>();
 
         try (var connection = ConnectionPool.getDataSource().getConnection();
              var preparedStatement = connection.prepareStatement(sql)) {
@@ -158,10 +156,8 @@ public class LabelRepositoryImpl implements LabelRepository {
 
             while (resultSet.next()) {
                 labels.add(
-                    Label.builder()
-                        .id(resultSet.getInt("id"))
-                        .name(resultSet.getString("name"))
-                        .build());
+                    new Label(resultSet.getInt("id"),
+                        resultSet.getString("name")));
             }
             return labels;
         } catch (SQLException e) {

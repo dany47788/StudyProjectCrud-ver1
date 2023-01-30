@@ -1,16 +1,17 @@
 package org.example.service;
 
-import org.example.domain.Post;
 import org.example.domain.enums.PostStatus;
 import org.example.dto.LabelDto;
 import org.example.dto.PostDto;
-import org.example.dto.mapper.*;
+import org.example.dto.mapper.LabelDtoMapper;
+import org.example.dto.mapper.LabelMapper;
+import org.example.dto.mapper.PostDtoMapper;
+import org.example.dto.mapper.PostMapper;
 import org.example.exception.NotFoundException;
 import org.example.repository.impl.LabelRepositoryImpl;
 import org.example.repository.impl.PostRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -18,7 +19,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -30,8 +30,6 @@ class PostServiceTest {
     private final LabelMapper labelMapper = new LabelMapper();
     private final PostDtoMapper postDtoMapper = new PostDtoMapper(labelDtoMapper);
     private final PostMapper postMapper = new PostMapper(labelMapper);
-    private final WriterDtoMapper writerDtoMapper = new WriterDtoMapper(postDtoMapper);
-    private final WriterMapper writerMapper = new WriterMapper(postMapper);
     @Mock
     private PostRepositoryImpl postRepository;
     @Mock
@@ -44,124 +42,99 @@ class PostServiceTest {
             postRepository, labelRepository, labelDtoMapper, postDtoMapper, postMapper);
     }
 
-    @Nested
-    public class TestUpdate {
-        @Test
-        void update() {
+    @Test
+    void update() {
+        var postDto = new PostDto(1, 1, LocalDateTime.now(), LocalDateTime.now(), "test", PostStatus.ACTIVE);
 
-            var postDto = new PostDto(1, 1, LocalDateTime.now(),LocalDateTime.now(), "test", PostStatus.ACTIVE, new ArrayList<>());
+        var extendedResult = postMapper.map(postDto);
 
-            Post extendedResult = postMapper.map(postDto);
+        given(postRepository.update(extendedResult)).willReturn(extendedResult);
 
-            given(postRepository.update(extendedResult)).willReturn(extendedResult);
+        var result = postService.update(postDto);
 
-            PostDto result = postService.update(postDto);
-
-            assertEquals(postDto, result);
-        }
-
-        @Test
-        void update_null() {
-
-            PostDto result = postService.update(null);
-
-            assertNull(result);
-        }
+        assertEquals(postDto, result);
     }
 
-    @Nested
-    public class TestCreate {
-        @Test
-        void create() {
+    @Test
+    void update_null() {
+        var result = postService.update(null);
 
-            var postDto = new PostDto(1, 1, LocalDateTime.now(),LocalDateTime.now(), "test", PostStatus.ACTIVE, new ArrayList<>());
-
-            Post extendedResult = postMapper.map(postDto);
-
-            given(postRepository.create(extendedResult)).willReturn(extendedResult);
-
-            PostDto result = postService.create(postDto);
-
-            assertEquals(postDto, result);
-        }
-
-        @Test
-        void create_null() {
-
-            PostDto result = postService.create(null);
-
-            assertNull(result);
-        }
+        assertNull(result);
     }
 
-    @Nested
-    public class TestDeleteById {
-        @Test
-        void delete() {
+    @Test
+    void create() {
+        var postDto = new PostDto(1, 1, LocalDateTime.now(), LocalDateTime.now(), "test", PostStatus.ACTIVE);
 
-            assertDoesNotThrow(() -> {
-                postService.deleteById(10);
-            });
-        }
+        var extendedResult = postMapper.map(postDto);
+
+        given(postRepository.create(extendedResult)).willReturn(extendedResult);
+
+        var result = postService.create(postDto);
+
+        assertEquals(postDto, result);
     }
 
-    @Nested
-    public class TestFindAll {
-        @Test
-        void testFindAll() {
+    @Test
+    void create_null() {
+        var result = postService.create(null);
 
-            given(postRepository.findAll()).willReturn(new ArrayList<>());
-
-            List<PostDto> result = postService.findAll();
-            assertEquals(new ArrayList<>(), result);
-        }
+        assertNull(result);
     }
 
-    @Nested
-    public class TestFindById {
-        @Test
-        void testIFindById_Found() {
+    @Test
+    void delete() {
+        assertDoesNotThrow(() -> postService.deleteById(any(Integer.class)));
+    }
 
-            var expectedResult = new PostDto(1, 1, LocalDateTime.now(),LocalDateTime.now(), "test", PostStatus.ACTIVE, new ArrayList<>());
+    @Test
+    void testFindAll() {
 
-            given(postRepository.findById(10)).willReturn(postMapper.map(expectedResult));
+        given(postRepository.findAll()).willReturn(new ArrayList<>());
 
-            List<LabelDto> expectedLabels = new ArrayList<>();
-            expectedLabels.add(new LabelDto(10,"test",new ArrayList<>()));
+        var result = postService.findAll();
+        assertEquals(new ArrayList<>(), result);
+    }
 
-            given(labelRepository.findByPostId(10)).willReturn(expectedLabels.stream()
-                .map(labelMapper::map)
-                .toList());
+    @Test
+    void testIFindById_Found() {
+        var expectedResult = new PostDto(1, 1, LocalDateTime.now(), LocalDateTime.now(), "test", PostStatus.ACTIVE, new ArrayList<>());
+        var expectedLabels = new ArrayList<LabelDto>();
 
-            expectedResult.setLabels(expectedLabels);
+        given(postRepository.findById(10)).willReturn(postMapper.map(expectedResult));
 
-            PostDto result = postService.findById(10);
+        expectedLabels.add(new LabelDto(10, "test", new ArrayList<>()));
 
-            Assertions.assertEquals(expectedResult.getId(), result.getId());
-            Assertions.assertEquals(expectedResult.getWriterId(), result.getWriterId());
-            Assertions.assertEquals(expectedResult.getLabels(), result.getLabels());
-            Assertions.assertEquals(expectedResult.getPostStatus(), result.getPostStatus());
-            Assertions.assertEquals(expectedResult.getCreated(), result.getCreated());
-            Assertions.assertEquals(expectedResult.getUpdated(), result.getUpdated());
-            Assertions.assertEquals(expectedResult.getContent(), result.getContent());
-        }
+        given(labelRepository.findByPostId(10)).willReturn(expectedLabels.stream()
+            .map(labelMapper::map)
+            .toList());
 
-        @Test
-        void testFindById_NotFound() {
+        expectedResult.setLabels(expectedLabels);
 
-            given(postRepository.findById(any(Integer.class))).willThrow(NotFoundException.class);
+        var result = postService.findById(10);
 
-            assertThrows(NotFoundException.class, () -> {
-                postService.findById(any(Integer.class));
-            });
-        }
+        Assertions.assertEquals(expectedResult.getId(), result.getId());
+        Assertions.assertEquals(expectedResult.getWriterId(), result.getWriterId());
+        Assertions.assertEquals(expectedResult.getLabels(), result.getLabels());
+        Assertions.assertEquals(expectedResult.getPostStatus(), result.getPostStatus());
+        Assertions.assertEquals(expectedResult.getCreated(), result.getCreated());
+        Assertions.assertEquals(expectedResult.getUpdated(), result.getUpdated());
+        Assertions.assertEquals(expectedResult.getContent(), result.getContent());
+    }
 
-        @Test
-        void testFindById_Null() {
+    @Test
+    void testFindById_NotFound() {
+        given(postRepository.findById(any(Integer.class))).willThrow(NotFoundException.class);
 
-            PostDto result = postService.findById(null);
+        assertThrows(NotFoundException.class, () -> {
+            postService.findById(any(Integer.class));
+        });
+    }
 
-            assertNull(result);
-        }
+    @Test
+    void testFindById_Null() {
+        var result = postService.findById(null);
+
+        assertNull(result);
     }
 }

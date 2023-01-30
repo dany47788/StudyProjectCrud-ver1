@@ -1,11 +1,13 @@
 package org.example.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@AllArgsConstructor
 @Builder
 @Data
 public class Writer {
@@ -16,12 +18,5 @@ public class Writer {
 
     public Writer(Integer id, String firstName, String lastName) {
         this(id, firstName, lastName, new ArrayList<>());
-    }
-
-    public Writer(Integer id, String firstName, String lastName, List<Post> posts) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.posts = posts;
     }
 }

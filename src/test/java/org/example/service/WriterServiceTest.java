@@ -10,7 +10,6 @@ import org.example.repository.impl.PostRepositoryImpl;
 import org.example.repository.impl.WriterRepositoryImpl;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -44,121 +43,94 @@ class WriterServiceTest {
             writerRepository, postRepository, postDtoMapper, writerDtoMapper, writerMapper);
     }
 
-    @Nested
-    public class TestFindAll {
-        @Test
-        void testFindAll() {
+    @Test
+    void testFindAll() {
+        given(writerRepository.findAll()).willReturn(new ArrayList<>());
 
-            given(writerRepository.findAll()).willReturn(new ArrayList<>());
+        var result = writerService.findAll();
 
-            List<WriterDto> result = writerService.findAll();
-            assertEquals(new ArrayList<>(), result);
-        }
+        assertEquals(new ArrayList<>(), result);
     }
 
-    @Nested
-    public class TestFindById {
-        @Test
-        void testIFindById_Found() {
+    @Test
+    void testIFindById_Found() {
+        var expectedResult = new WriterDto(1, "test", "test", new ArrayList<>());
+        var expectedPosts = new ArrayList<PostDto>();
 
-            var expectedResult = new WriterDto(1, "test", "test", new ArrayList<>());
+        given(writerRepository.findById(10)).willReturn(writerMapper.map(expectedResult));
 
-            given(writerRepository.findById(10)).willReturn(writerMapper.map(expectedResult));
+        expectedPosts.add(new PostDto(1, 1, LocalDateTime.now(), LocalDateTime.now(), "test", PostStatus.ACTIVE, new ArrayList<>()));
 
-            List<PostDto> expectedPosts = new ArrayList<>();
-            expectedPosts.add(new PostDto(1, 1, LocalDateTime.now(),LocalDateTime.now(), "test", PostStatus.ACTIVE, new ArrayList<>()));
+        given(postRepository.findByWriterId(10)).willReturn(expectedPosts.stream()
+            .map(postMapper::map)
+            .toList());
 
-            given(postRepository.findByWriterId(10)).willReturn(expectedPosts.stream()
-                .map(postMapper::map)
-                .toList());
+        expectedResult.setPosts(expectedPosts);
 
-            expectedResult.setPosts(expectedPosts);
+        var result = writerService.findById(10);
 
-            WriterDto result = writerService.findById(10);
-
-            Assertions.assertEquals(expectedResult.getId(), result.getId());
-            Assertions.assertEquals(expectedResult.getFirstName(), result.getFirstName());
-            Assertions.assertEquals(expectedResult.getLastName(), result.getLastName());
-            Assertions.assertEquals(expectedResult.getPosts(), result.getPosts());
-        }
-
-        @Test
-        void testFindById_NotFound() {
-
-            given(writerRepository.findById(any(Integer.class))).willThrow(NotFoundException.class);
-
-            assertThrows(NotFoundException.class, () -> {
-                writerService.findById(any(Integer.class));
-            });
-        }
-
-        @Test
-        void testFindById_Null() {
-
-            WriterDto result = writerService.findById(null);
-
-            assertNull(result);
-        }
+        Assertions.assertEquals(expectedResult.getId(), result.getId());
+        Assertions.assertEquals(expectedResult.getFirstName(), result.getFirstName());
+        Assertions.assertEquals(expectedResult.getLastName(), result.getLastName());
+        Assertions.assertEquals(expectedResult.getPosts(), result.getPosts());
     }
 
-    @Nested
-    public class TestUpdate {
-        @Test
-        void update() {
+    @Test
+    void testFindById_NotFound() {
+        given(writerRepository.findById(any(Integer.class))).willThrow(NotFoundException.class);
 
-            var writerDto = new WriterDto(1, "test", "test", new ArrayList<>());
-
-            Writer extendedResult = writerMapper.map(writerDto);
-
-            given(writerRepository.update(extendedResult)).willReturn(extendedResult);
-
-            WriterDto result = writerService.update(writerDto);
-
-            assertEquals(writerDto, result);
-        }
-
-        @Test
-        void update_null() {
-
-            WriterDto result = writerService.update(null);
-
-            assertNull(result);
-        }
+        assertThrows(NotFoundException.class, () -> {
+            writerService.findById(any(Integer.class));
+        });
     }
 
-    @Nested
-    public class TestDeleteById {
-        @Test
-        void delete() {
+    @Test
+    void testFindById_Null() {
+        var result = writerService.findById(null);
 
-            assertDoesNotThrow(() -> {
-                writerService.deleteById(10);
-            });
-        }
+        assertNull(result);
     }
 
-    @Nested
-    public class TestCreate {
-        @Test
-        void create() {
+    @Test
+    void update() {
+        var writerDto = new WriterDto(1, "test", "test", new ArrayList<>());
+        var extendedResult = writerMapper.map(writerDto);
 
-            var writerDto = new WriterDto(1, "test", "test", new ArrayList<>());
+        given(writerRepository.update(extendedResult)).willReturn(extendedResult);
 
-            Writer extendedResult = writerMapper.map(writerDto);
+        var result = writerService.update(writerDto);
 
-            given(writerRepository.create(extendedResult)).willReturn(extendedResult);
+        assertEquals(writerDto, result);
+    }
 
-            WriterDto result = writerService.create(writerDto);
+    @Test
+    void update_null() {
+        var result = writerService.update(null);
 
-            assertEquals(writerDto, result);
-        }
+        assertNull(result);
+    }
 
-        @Test
-        void create_null() {
+    @Test
+    void delete() {
+        assertDoesNotThrow(() -> writerService.deleteById(10));
+    }
 
-            WriterDto result = writerService.create(null);
+    @Test
+    void create() {
+        var writerDto = new WriterDto(1, "test", "test", new ArrayList<>());
+        var extendedResult = writerMapper.map(writerDto);
 
-            assertNull(result);
-        }
+        given(writerRepository.create(extendedResult)).willReturn(extendedResult);
+
+        var result = writerService.create(writerDto);
+
+        assertEquals(writerDto, result);
+    }
+
+    @Test
+    void create_null() {
+        var result = writerService.create(null);
+
+        assertNull(result);
     }
 }

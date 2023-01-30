@@ -1,0 +1,343 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="5f9aa858-e105-475e-bdcf-8bc4cac4821c" name="Changes" comment="test" />
+    <list id="552b34a9-6702-46b0-9a16-98e7e48ab2fa" name="New changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Enum" />
+        <option value="Interface" />
+        <option value="JUnit5 Test Class" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="UPDATE_TYPE" value="REBASE" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4d1224e3-76a0-49b1-b2ac-ba98af85593e" />
+        <option name="url" value="https://github.com/dany47788/StudyCrudApp.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2Iizr1Xu93HYVWZSaFWHeZ5Itv0" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "ToolWindowBuild.ShowToolbar": "false",
+    "WebServerToolWindowFactoryState": "false",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrary": "JUnit5",
+    "com.intellij.testIntegration.createTest.CreateTestDialog.defaultLibrarySuperClass.JUnit5": "",
+    "extract.method.default.visibility": "public",
+    "last_opened_file_path": "/Users/kocherov/Desktop/StudyProjectCrud-master",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="org.example.utils" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources" />
+    </key>
+    <key name="CreateTestDialog.Recents.Supers">
+      <recent name="" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="org.example.service" />
+    </key>
+    <key name="CreateTestDialog.RecentsKey">
+      <recent name="org.example.service" />
+    </key>
+  </component>
+  <component name="RunManager" selected="JUnit.LabelServiceTest$TestUpdate.update_null">
+    <configuration name="LabelServiceTest$TestCreate.create" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="StudyProjectCrud-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service.LabelServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.LabelServiceTest$TestCreate" />
+      <option name="METHOD_NAME" value="create" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="LabelServiceTest$TestUpdate.update_null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="StudyProjectCrud-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service.LabelServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.LabelServiceTest$TestUpdate" />
+      <option name="METHOD_NAME" value="update_null" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="PostServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="StudyProjectCrud-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.PostServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WriterServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="StudyProjectCrud-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WriterServiceTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="org.example.service in StudyProjectCrud-master" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="StudyProjectCrud-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="TEST_OBJECT" value="package" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.LabelServiceTest$TestUpdate.update_null" />
+        <item itemvalue="JUnit.LabelServiceTest$TestCreate.create" />
+        <item itemvalue="JUnit.org.example.service in StudyProjectCrud-master" />
+        <item itemvalue="JUnit.WriterServiceTest" />
+        <item itemvalue="JUnit.PostServiceTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="5f9aa858-e105-475e-bdcf-8bc4cac4821c" name="Changes" comment="" />
+      <changelist id="552b34a9-6702-46b0-9a16-98e7e48ab2fa" name="New changelist" comment="" />
+      <created>1670679386915</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1670679386915</updated>
+      <workItem from="1672128625347" duration="10374000" />
+      <workItem from="1672220441218" duration="63000" />
+      <workItem from="1672220877290" duration="122331000" />
+      <workItem from="1673800135667" duration="3415000" />
+      <workItem from="1673869782496" duration="21761000" />
+      <workItem from="1673970848072" duration="687000" />
+      <workItem from="1674117555488" duration="44714000" />
+      <workItem from="1674670171764" duration="2092000" />
+      <workItem from="1674712314074" duration="520000" />
+      <workItem from="1674715462992" duration="1685000" />
+    </task>
+    <task id="LOCAL-00001" summary="test">
+      <created>1672045602609</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1672045602609</updated>
+    </task>
+    <task id="LOCAL-00002" summary="test">
+      <created>1672050753752</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1672050753752</updated>
+    </task>
+    <task id="LOCAL-00003" summary="test">
+      <created>1672050797176</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1672050797177</updated>
+    </task>
+    <task id="LOCAL-00004" summary="test">
+      <created>1673332533787</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1673332533788</updated>
+    </task>
+    <task id="LOCAL-00005" summary="test">
+      <created>1673333864002</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1673333864002</updated>
+    </task>
+    <task id="LOCAL-00006" summary="test">
+      <created>1673336706456</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1673336706456</updated>
+    </task>
+    <task id="LOCAL-00007" summary="test">
+      <created>1673970933261</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1673970933261</updated>
+    </task>
+    <task id="LOCAL-00008" summary="test">
+      <created>1674121438538</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1674121438538</updated>
+    </task>
+    <task id="LOCAL-00009" summary="test">
+      <created>1674121633485</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1674121633485</updated>
+    </task>
+    <task id="LOCAL-00010" summary="test">
+      <created>1674222186306</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1674222186306</updated>
+    </task>
+    <task id="LOCAL-00011" summary="test">
+      <created>1674222235691</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1674222235691</updated>
+    </task>
+    <task id="LOCAL-00012" summary="test">
+      <created>1674492454379</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1674492454379</updated>
+    </task>
+    <task id="LOCAL-00013" summary="test">
+      <created>1674492469931</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1674492469931</updated>
+    </task>
+    <task id="LOCAL-00014" summary="test">
+      <created>1674552044028</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1674552044028</updated>
+    </task>
+    <task id="LOCAL-00015" summary="test">
+      <created>1674552291972</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1674552291972</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="test" />
+    <option name="LAST_COMMIT_MESSAGE" value="test" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.sql.SQLException" package="java.sql" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/StudyProjectCrud_master$LabelServiceTest__1_.ic" NAME="LabelServiceTest (1) Coverage Results" MODIFIED="1674491333383" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+    <SUITE FILE_PATH="coverage/StudyProjectCrud_master$org_example_service_in_StudyProjectCrud_master.ic" NAME="org.example.service in StudyProjectCrud-master Coverage Results" MODIFIED="1674553208145" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.example.service.*</FILTER>
+    </SUITE>
+    <SUITE FILE_PATH="coverage/CRUDapplication$LabelServiceTest.ic" NAME="LabelServiceTest Coverage Results" MODIFIED="1672846752041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
+  </component>
+</project>

@@ -14,7 +14,7 @@ import java.util.List;
 public class Label {
     private final Integer id;
     private final String name;
-    private final List<PostDto> posts;
+    private final List<Post> posts;
 
     public Label(Integer id, String name) {
         this(id, name, new ArrayList<>());

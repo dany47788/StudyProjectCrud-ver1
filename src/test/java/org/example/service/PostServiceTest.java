@@ -43,6 +43,10 @@ class PostServiceTest {
         labelMapper = new LabelMapper();
         postDtoMapper = new PostDtoMapper(labelDtoMapper);
         postMapper = new PostMapper(labelMapper);
+
+        labelDtoMapper.setPostDtoMapper(postDtoMapper);
+        labelMapper.setPostMapper(postMapper);
+
         postService = new PostService(
             postRepository, labelRepository, labelDtoMapper, postDtoMapper, postMapper);
     }

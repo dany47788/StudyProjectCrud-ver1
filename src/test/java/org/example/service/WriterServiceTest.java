@@ -45,6 +45,10 @@ class WriterServiceTest {
         postMapper = new PostMapper(labelMapper);
         writerDtoMapper = new WriterDtoMapper(postDtoMapper);
         writerMapper = new WriterMapper(postMapper);
+
+        labelDtoMapper.setPostDtoMapper(postDtoMapper);
+        labelMapper.setPostMapper(postMapper);
+
         writerService = new WriterService(
             writerRepository, postRepository, postDtoMapper, writerDtoMapper, writerMapper);
     }

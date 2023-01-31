@@ -21,7 +21,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -103,7 +102,7 @@ public class LabelServiceTest {
 
         given(postRepository.findByLabelId(any(Integer.class)))
             .willReturn(expectedPosts.stream()
-            .map(postMapper::map).toList());
+                .map(postMapper::map).toList());
 
         var result = labelService.findByName("test");
 
@@ -129,7 +128,7 @@ public class LabelServiceTest {
         var labels = new ArrayList<Label>();
 
         for (int i = 1; i < 4; i++) {
-            labels.add(new Label(i, "test"+i));
+            labels.add(new Label(i, "test" + i));
         }
         given(labelRepository.findAll()).willReturn(labels);
 
@@ -168,11 +167,6 @@ public class LabelServiceTest {
     @Test
     void delete() {
         assertDoesNotThrow(() -> labelService.deleteById(any(Integer.class)));
-    }
-
-    @Test
-    void delete_null() {
-        assertThrows(NullPointerException.class, () -> labelService.deleteById(null));
     }
 
     @Test

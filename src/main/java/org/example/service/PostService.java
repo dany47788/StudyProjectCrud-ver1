@@ -2,7 +2,6 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.example.domain.Post;
 import org.example.dto.PostDto;
 import org.example.dto.mapper.LabelDtoMapper;
 import org.example.dto.mapper.PostDtoMapper;

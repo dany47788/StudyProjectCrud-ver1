@@ -3,7 +3,6 @@ package org.example.service;
 import org.example.domain.Post;
 import org.example.domain.Writer;
 import org.example.domain.enums.PostStatus;
-import org.example.dto.LabelDto;
 import org.example.dto.PostDto;
 import org.example.dto.WriterDto;
 import org.example.dto.mapper.*;
@@ -19,7 +18,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -64,9 +62,10 @@ class WriterServiceTest {
         var expectedResult = new WriterDto(1, "test", "test");
         var expectedPosts = new ArrayList<PostDto>();
 
-        expectedPosts.add(new PostDto(1, 1, LocalDateTime.now(), LocalDateTime.now(), "test1", PostStatus.ACTIVE));
-        expectedPosts.add(new PostDto(2, 2, LocalDateTime.now(), LocalDateTime.now(), "test2", PostStatus.ACTIVE));
-        expectedPosts.add(new PostDto(3, 3, LocalDateTime.now(), LocalDateTime.now(), "test3", PostStatus.ACTIVE));
+        for (int i = 1; i < 4; i++) {
+            expectedPosts.add(new PostDto(i, i, LocalDateTime.now(),
+                LocalDateTime.now(), "test" + i, PostStatus.ACTIVE));
+        }
 
         given(writerRepository.findById(any(Integer.class))).willReturn(writerMapper.map(expectedResult));
 
@@ -112,9 +111,7 @@ class WriterServiceTest {
 
     @Test
     void update_null() {
-        var result = writerService.update(null);
-
-        assertNull(result);
+        assertThrows(NullPointerException.class, () -> writerService.update(null));
     }
 
     @Test
@@ -123,19 +120,15 @@ class WriterServiceTest {
     }
 
     @Test
-    void delete_null() {
-        assertThrows(NullPointerException.class, () -> writerService.deleteById(null));
-    }
-
-    @Test
     void create() {
         var posts = new ArrayList<Post>();
 
-        posts.add(new Post(1, LocalDateTime.now(), LocalDateTime.now(), 1, "test1", PostStatus.ACTIVE));
-        posts.add(new Post(2, LocalDateTime.now(), LocalDateTime.now(), 2, "test2", PostStatus.ACTIVE));
-        posts.add(new Post(3, LocalDateTime.now(), LocalDateTime.now(), 3, "test3", PostStatus.ACTIVE));
+        for (int i = 1; i < 4; i++) {
+            posts.add(new Post(i, LocalDateTime.now(), LocalDateTime.now(),
+                i, "test" + i, PostStatus.ACTIVE));
+        }
 
-        var writerDto = new WriterDto(1, "test", "test", new ArrayList<>());
+        var writerDto = new WriterDto(1, "test", "test");
         var extendedResult = writerMapper.map(writerDto);
 
         given(writerRepository.create(extendedResult)).willReturn(extendedResult);

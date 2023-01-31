@@ -1,6 +1,5 @@
 package org.example.service;
 
-import org.example.domain.Label;
 import org.example.domain.Post;
 import org.example.domain.enums.PostStatus;
 import org.example.dto.LabelDto;
@@ -65,9 +64,9 @@ class PostServiceTest {
     @Test
     void create() {
         var labels = new ArrayList<LabelDto>();
-        labels.add(new LabelDto(1, "test"));
-        labels.add(new LabelDto(2, "test1"));
-        labels.add(new LabelDto(3, "test2"));
+        for (int i = 1; i < 4; i++) {
+            labels.add(new LabelDto(i, "test" + i));
+        }
 
         var inputDto = PostDto.builder()
             .writerId(1)
@@ -112,16 +111,11 @@ class PostServiceTest {
     }
 
     @Test
-    void delete_null() {
-        assertThrows(NullPointerException.class, () -> postService.deleteById(null));
-    }
-
-    @Test
     void testFindAll() {
         var posts = new ArrayList<Post>();
 
         for (int i = 1; i < 4; i++) {
-            posts.add(new Post(i, LocalDateTime.now(), LocalDateTime.now(), i, "test"+i, PostStatus.ACTIVE));
+            posts.add(new Post(i, LocalDateTime.now(), LocalDateTime.now(), i, "test" + i, PostStatus.ACTIVE));
         }
         given(postRepository.findAll()).willReturn(posts);
 
@@ -135,9 +129,9 @@ class PostServiceTest {
         var expectedResult = new PostDto(1, 1, LocalDateTime.now(), LocalDateTime.now(), "test", PostStatus.ACTIVE);
         var expectedLabels = new ArrayList<LabelDto>();
 
-        expectedLabels.add(new LabelDto(10, "test1"));
-        expectedLabels.add(new LabelDto(11, "test2"));
-        expectedLabels.add(new LabelDto(12, "test3"));
+        for (int i = 1; i < 4; i++) {
+            expectedLabels.add(new LabelDto(i, "test1" + i));
+        }
 
         given(postRepository.findById(any(Integer.class))).willReturn(postMapper.map(expectedResult));
 

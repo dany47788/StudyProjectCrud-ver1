@@ -28,7 +28,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             while (resultSet.next()) {
                 labels.add(
                     new Label(resultSet.getInt("id"),
-                    resultSet.getString("name")));
+                        resultSet.getString("name")));
             }
             return labels;
         } catch (SQLException e) {

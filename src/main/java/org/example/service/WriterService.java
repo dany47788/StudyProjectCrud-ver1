@@ -47,11 +47,7 @@ public class WriterService {
     }
 
     public WriterDto create(WriterDto writerDto) {
-        writerRepositoryImpl.create(writerMapper.map(writerDto));
-
-        log.info("{} - created.", writerDto);
-
-        return writerDto;
+        return writerDtoMapper.map(writerRepositoryImpl.create(writerMapper.map(writerDto)));
     }
 
     public WriterDto update(WriterDto writerDto) {

@@ -134,9 +134,8 @@ public class LabelServiceTest {
         given(labelRepository.findAll()).willReturn(labels);
 
         var result = labelService.findAll();
-        assertEquals(labels.stream()
-            .map(labelDtoMapper::map)
-            .toList(), result);
+
+        assertEquals(labels.stream().map(labelDtoMapper::map).toList(), result);
     }
 
     @Test
@@ -145,18 +144,19 @@ public class LabelServiceTest {
             .name("test")
             .build();
 
-        var extendedResult = Label.builder()
+        var extendedResult = LabelDto.builder()
             .id(1)
             .name(inputLabelDto.getName())
             .build();
 
-        given(labelRepository.create(any())).willReturn(extendedResult);
+        given(labelRepository.create(labelMapper.map(inputLabelDto)))
+            .willReturn(labelMapper.map(extendedResult));
 
         var result = labelService.create(inputLabelDto);
 
-        assertEquals(inputLabelDto.getName(), result.getName());
-        assertEquals(inputLabelDto.getPosts(), result.getPosts());
-        assertNotSame(inputLabelDto.getId(), result.getId());
+        assertEquals(extendedResult.getName(), result.getName());
+        assertEquals(extendedResult.getPosts(), result.getPosts());
+        assertEquals(extendedResult.getId(), result.getId());
         assertNotNull(result.getId());
     }
 
@@ -171,15 +171,20 @@ public class LabelServiceTest {
     }
 
     @Test
+    void delete_null() {
+        assertThrows(NullPointerException.class, () -> labelService.deleteById(null));
+    }
+
+    @Test
     void update() {
-        var labelDto = new LabelDto(1, "test");
-        var extendedResult = labelMapper.map(labelDto);
+        var inputDto = new LabelDto(1, "test");
 
-        given(labelRepository.update(extendedResult)).willReturn(extendedResult);
+        given(labelRepository.update(labelMapper.map(inputDto)))
+            .willReturn(labelMapper.map(inputDto));
 
-        var result = labelService.update(labelDto);
+        var returnedDto = labelService.update(inputDto);
 
-        assertEquals(labelDto, result);
+        assertEquals(inputDto, returnedDto);
     }
 
     @Test

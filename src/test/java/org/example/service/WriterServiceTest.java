@@ -1,7 +1,9 @@
 package org.example.service;
 
+import org.example.domain.Post;
 import org.example.domain.Writer;
 import org.example.domain.enums.PostStatus;
+import org.example.dto.LabelDto;
 import org.example.dto.PostDto;
 import org.example.dto.WriterDto;
 import org.example.dto.mapper.*;
@@ -45,29 +47,36 @@ class WriterServiceTest {
 
     @Test
     void testFindAll() {
-        given(writerRepository.findAll()).willReturn(new ArrayList<>());
+        var writer = new ArrayList<Writer>();
+
+        for (int i = 1; i < 4; i++) {
+            writer.add(new Writer(i, "test" + i, "test" + i));
+        }
+        given(writerRepository.findAll()).willReturn(writer);
 
         var result = writerService.findAll();
 
-        assertEquals(new ArrayList<>(), result);
+        assertEquals(writer.stream().map(writerDtoMapper::map).toList(), result);
     }
 
     @Test
     void testIFindById_Found() {
-        var expectedResult = new WriterDto(1, "test", "test", new ArrayList<>());
+        var expectedResult = new WriterDto(1, "test", "test");
         var expectedPosts = new ArrayList<PostDto>();
 
-        given(writerRepository.findById(10)).willReturn(writerMapper.map(expectedResult));
+        expectedPosts.add(new PostDto(1, 1, LocalDateTime.now(), LocalDateTime.now(), "test1", PostStatus.ACTIVE));
+        expectedPosts.add(new PostDto(2, 2, LocalDateTime.now(), LocalDateTime.now(), "test2", PostStatus.ACTIVE));
+        expectedPosts.add(new PostDto(3, 3, LocalDateTime.now(), LocalDateTime.now(), "test3", PostStatus.ACTIVE));
 
-        expectedPosts.add(new PostDto(1, 1, LocalDateTime.now(), LocalDateTime.now(), "test", PostStatus.ACTIVE, new ArrayList<>()));
+        given(writerRepository.findById(any(Integer.class))).willReturn(writerMapper.map(expectedResult));
 
-        given(postRepository.findByWriterId(10)).willReturn(expectedPosts.stream()
+        given(postRepository.findByWriterId(any(Integer.class))).willReturn(expectedPosts.stream()
             .map(postMapper::map)
             .toList());
 
         expectedResult.setPosts(expectedPosts);
 
-        var result = writerService.findById(10);
+        var result = writerService.findById(any(Integer.class));
 
         Assertions.assertEquals(expectedResult.getId(), result.getId());
         Assertions.assertEquals(expectedResult.getFirstName(), result.getFirstName());
@@ -79,9 +88,7 @@ class WriterServiceTest {
     void testFindById_NotFound() {
         given(writerRepository.findById(any(Integer.class))).willThrow(NotFoundException.class);
 
-        assertThrows(NotFoundException.class, () -> {
-            writerService.findById(any(Integer.class));
-        });
+        assertThrows(NotFoundException.class, () -> writerService.findById(any(Integer.class)));
     }
 
     @Test
@@ -93,14 +100,14 @@ class WriterServiceTest {
 
     @Test
     void update() {
-        var writerDto = new WriterDto(1, "test", "test", new ArrayList<>());
-        var extendedResult = writerMapper.map(writerDto);
+        var inputDto = new WriterDto(1, "test", "test", new ArrayList<>());
 
-        given(writerRepository.update(extendedResult)).willReturn(extendedResult);
+        given(writerRepository.update(writerMapper.map(inputDto)))
+            .willReturn(writerMapper.map(inputDto));
 
-        var result = writerService.update(writerDto);
+        var returnedDto = writerService.update(inputDto);
 
-        assertEquals(writerDto, result);
+        assertEquals(inputDto, returnedDto);
     }
 
     @Test
@@ -112,11 +119,22 @@ class WriterServiceTest {
 
     @Test
     void delete() {
-        assertDoesNotThrow(() -> writerService.deleteById(10));
+        assertDoesNotThrow(() -> writerService.deleteById(any(Integer.class)));
+    }
+
+    @Test
+    void delete_null() {
+        assertThrows(NullPointerException.class, () -> writerService.deleteById(null));
     }
 
     @Test
     void create() {
+        var posts = new ArrayList<Post>();
+
+        posts.add(new Post(1, LocalDateTime.now(), LocalDateTime.now(), 1, "test1", PostStatus.ACTIVE));
+        posts.add(new Post(2, LocalDateTime.now(), LocalDateTime.now(), 2, "test2", PostStatus.ACTIVE));
+        posts.add(new Post(3, LocalDateTime.now(), LocalDateTime.now(), 3, "test3", PostStatus.ACTIVE));
+
         var writerDto = new WriterDto(1, "test", "test", new ArrayList<>());
         var extendedResult = writerMapper.map(writerDto);
 
@@ -129,8 +147,6 @@ class WriterServiceTest {
 
     @Test
     void create_null() {
-        var result = writerService.create(null);
-
-        assertNull(result);
+        assertThrows(NullPointerException.class, () -> writerService.create(null));
     }
 }

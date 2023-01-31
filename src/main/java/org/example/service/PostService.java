@@ -2,6 +2,7 @@ package org.example.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.example.domain.Post;
 import org.example.dto.PostDto;
 import org.example.dto.mapper.LabelDtoMapper;
 import org.example.dto.mapper.PostDtoMapper;
@@ -46,11 +47,7 @@ public class PostService {
     }
 
     public PostDto create(PostDto postDto) {
-        postRepositoryImpl.create(postMapper.map(postDto));
-
-        log.info("{} - created.", postDto);
-
-        return postDto;
+        return postDtoMapper.map(postRepositoryImpl.create(postMapper.map(postDto)));
     }
 
     public PostDto update(PostDto postDto) {

@@ -7,16 +7,11 @@
     <list default="true" id="5f9aa858-e105-475e-bdcf-8bc4cac4821c" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/domain/Label.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/domain/Label.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/domain/Post.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/domain/Post.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/domain/Writer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/domain/Writer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/LabelDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/LabelDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/PostDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/PostDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/dto/WriterDto.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/dto/WriterDto.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/LabelRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/LabelRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/PostRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/PostRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/WriterRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/WriterRepositoryImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/PostService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/WriterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WriterService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/LabelServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/LabelServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/PostServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/PostServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/WriterServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/WriterServiceTest.java" afterDir="false" />
     </list>
     <list id="552b34a9-6702-46b0-9a16-98e7e48ab2fa" name="New changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -103,7 +98,7 @@
       <recent name="org.example.service" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.LabelServiceTest">
+  <component name="RunManager" selected="JUnit.WriterServiceTest.testIFindById_Found">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="org.example.Main" />
       <module name="StudyProjectCrud-master" />
@@ -117,7 +112,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LabelServiceTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PostServiceTest.testFindById_Null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudyProjectCrud-master" />
       <extension name="coverage">
         <pattern>
@@ -126,29 +121,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.LabelServiceTest" />
-      <option name="TEST_OBJECT" value="class" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="LabelServiceTest.create" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="StudyProjectCrud-master" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="org.example.service.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.LabelServiceTest" />
-      <option name="METHOD_NAME" value="create" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.PostServiceTest" />
+      <option name="METHOD_NAME" value="testFindById_Null" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LabelServiceTest.create_null" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="PostServiceTest.testIFindById_Found" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudyProjectCrud-master" />
       <extension name="coverage">
         <pattern>
@@ -157,14 +137,14 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.LabelServiceTest" />
-      <option name="METHOD_NAME" value="create_null" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.PostServiceTest" />
+      <option name="METHOD_NAME" value="testIFindById_Found" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="LabelServiceTest.testIFindById_Found" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WriterServiceTest.testFindAll" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="StudyProjectCrud-master" />
       <extension name="coverage">
         <pattern>
@@ -173,7 +153,23 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="org.example.service" />
-      <option name="MAIN_CLASS_NAME" value="org.example.service.LabelServiceTest" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WriterServiceTest" />
+      <option name="METHOD_NAME" value="testFindAll" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="WriterServiceTest.testIFindById_Found" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="StudyProjectCrud-master" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.example.service.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.example.service" />
+      <option name="MAIN_CLASS_NAME" value="org.example.service.WriterServiceTest" />
       <option name="METHOD_NAME" value="testIFindById_Found" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
@@ -182,11 +178,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.LabelServiceTest" />
-        <item itemvalue="JUnit.LabelServiceTest.testIFindById_Found" />
+        <item itemvalue="JUnit.WriterServiceTest.testIFindById_Found" />
+        <item itemvalue="JUnit.WriterServiceTest.testFindAll" />
+        <item itemvalue="JUnit.PostServiceTest.testFindById_Null" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.LabelServiceTest.create" />
-        <item itemvalue="JUnit.LabelServiceTest.create_null" />
+        <item itemvalue="JUnit.PostServiceTest.testIFindById_Found" />
       </list>
     </recent_temporary>
   </component>
@@ -322,7 +318,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675084140060</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="test">
+      <created>1675093097601</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1675093097601</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

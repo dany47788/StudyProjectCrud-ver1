@@ -27,10 +27,10 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class PostServiceTest {
-    private final LabelDtoMapper labelDtoMapper = new LabelDtoMapper();
-    private final LabelMapper labelMapper = new LabelMapper();
-    private final PostDtoMapper postDtoMapper = new PostDtoMapper(labelDtoMapper);
-    private final PostMapper postMapper = new PostMapper(labelMapper);
+    private LabelDtoMapper labelDtoMapper;
+    private LabelMapper labelMapper;
+    private PostDtoMapper postDtoMapper;
+    private PostMapper postMapper;
     @Mock
     private PostRepositoryImpl postRepository;
     @Mock
@@ -39,6 +39,10 @@ class PostServiceTest {
 
     @BeforeEach
     void init() {
+        labelDtoMapper = new LabelDtoMapper();
+        labelMapper = new LabelMapper();
+        postDtoMapper = new PostDtoMapper(labelDtoMapper);
+        postMapper = new PostMapper(labelMapper);
         postService = new PostService(
             postRepository, labelRepository, labelDtoMapper, postDtoMapper, postMapper);
     }

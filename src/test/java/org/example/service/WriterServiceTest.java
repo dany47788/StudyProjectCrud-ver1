@@ -25,12 +25,12 @@ import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
 class WriterServiceTest {
-    private final LabelDtoMapper labelDtoMapper = new LabelDtoMapper();
-    private final LabelMapper labelMapper = new LabelMapper();
-    private final PostDtoMapper postDtoMapper = new PostDtoMapper(labelDtoMapper);
-    private final PostMapper postMapper = new PostMapper(labelMapper);
-    private final WriterDtoMapper writerDtoMapper = new WriterDtoMapper(postDtoMapper);
-    private final WriterMapper writerMapper = new WriterMapper(postMapper);
+    private LabelDtoMapper labelDtoMapper;
+    private LabelMapper labelMapper;
+    private PostDtoMapper postDtoMapper;
+    private PostMapper postMapper;
+    private WriterDtoMapper writerDtoMapper;
+    private WriterMapper writerMapper;
     @Mock
     private PostRepositoryImpl postRepository;
     @Mock
@@ -39,6 +39,12 @@ class WriterServiceTest {
 
     @BeforeEach
     void init() {
+        labelDtoMapper = new LabelDtoMapper();
+        labelMapper = new LabelMapper();
+        postDtoMapper = new PostDtoMapper(labelDtoMapper);
+        postMapper = new PostMapper(labelMapper);
+        writerDtoMapper = new WriterDtoMapper(postDtoMapper);
+        writerMapper = new WriterMapper(postMapper);
         writerService = new WriterService(
             writerRepository, postRepository, postDtoMapper, writerDtoMapper, writerMapper);
     }

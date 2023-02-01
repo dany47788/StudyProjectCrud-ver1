@@ -21,7 +21,8 @@ public class PostDto {
     private PostStatus postStatus;
     private List<LabelDto> labels;
 
-    public PostDto(Integer id, Integer writerId, LocalDateTime created, LocalDateTime updated, String content, PostStatus postStatus) {
+    public PostDto(Integer id, Integer writerId, LocalDateTime created,
+                   LocalDateTime updated, String content, PostStatus postStatus) {
         this(id, writerId, created, updated, content, postStatus, new ArrayList<>());
     }
 }

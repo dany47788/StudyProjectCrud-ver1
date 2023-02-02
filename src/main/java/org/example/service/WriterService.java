@@ -33,15 +33,16 @@ public class WriterService {
         if (id == null) {
             return null;
         }
-        try {
-            var writerDto = writerDtoMapper.map(writerRepositoryImpl.findById(id));
 
-            writerDto.setPosts(postRepositoryImpl.findByWriterId(id).stream()
+        var writerDto = writerDtoMapper.map(writerRepositoryImpl.findById(id));
+
+        if (writerDto != null) {
+            writerDto.setPosts(postRepositoryImpl.findAllByWriterId(id).stream()
                 .map(postDtoMapper::map)
                 .toList());
 
             return writerDto;
-        } catch (NullPointerException e) {
+        } else {
             throw new NotFoundException(AppStatusCode.NOT_FOUND_EXCEPTION);
         }
     }

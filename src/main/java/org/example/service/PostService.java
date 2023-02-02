@@ -32,15 +32,16 @@ public class PostService {
         if (id == null) {
             return null;
         }
-        try {
-            var postDto = postDtoMapper.map(postRepositoryImpl.findById(id));
 
-            postDto.setLabels(labelRepositoryImpl.findByPostId(id).stream()
+        var postDto = postDtoMapper.map(postRepositoryImpl.findById(id));
+
+        if (postDto != null) {
+            postDto.setLabels(labelRepositoryImpl.findAllByPostId(id).stream()
                 .map(labelDtoMapper::map)
                 .toList());
 
             return postDto;
-        } catch (NullPointerException e) {
+        } else {
             throw new NotFoundException(AppStatusCode.NOT_FOUND_EXCEPTION);
         }
     }

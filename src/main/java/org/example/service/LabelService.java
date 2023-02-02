@@ -31,19 +31,20 @@ public class LabelService {
 
     public LabelDto findById(Integer id) {
         if (id == null) {
-            throw new NotFoundException(AppStatusCode.IS_NULL_EXCEPTION);
+            throw new NotFoundException(AppStatusCode.NULL_ARGUMENT_EXCEPTION);
         }
-        try {
-            var labelDto = labelDtoMapper.map(labelRepositoryImpl.findById(id));
 
-            var posts = postRepositoryImpl.findByLabelId(id).stream()
+        var labelDto = labelDtoMapper.map(labelRepositoryImpl.findById(id));
+
+        if (labelDto != null) {
+            var posts = postRepositoryImpl.findAllByLabelId(id).stream()
                 .map(postDtoMapper::map)
                 .toList();
 
             labelDto.setPosts(posts);
 
             return labelDto;
-        } catch (NullPointerException e) {
+        } else {
             throw new NotFoundException(AppStatusCode.NOT_FOUND_EXCEPTION);
         }
     }
@@ -68,12 +69,12 @@ public class LabelService {
 
     public LabelDto findByName(String name) {
         if (name == null) {
-            throw new NotFoundException(AppStatusCode.IS_NULL_EXCEPTION);
+            throw new NotFoundException(AppStatusCode.NULL_ARGUMENT_EXCEPTION);
         }
         try {
             var labelDto = labelDtoMapper.map(labelRepositoryImpl.findByName(name));
 
-            var posts = postRepositoryImpl.findByLabelId(labelDto.getId()).stream()
+            var posts = postRepositoryImpl.findAllByLabelId(labelDto.getId()).stream()
                 .map(postDtoMapper::map)
                 .toList();
 

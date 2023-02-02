@@ -123,7 +123,7 @@ class PostServiceTest {
         var posts = new ArrayList<Post>();
 
         for (int i = 1; i < 4; i++) {
-            posts.add(new Post(i, LocalDateTime.now(), LocalDateTime.now(), i, "test" + i, PostStatus.ACTIVE));
+            posts.add(new Post(i, i, LocalDateTime.now(), LocalDateTime.now(), "test" + i, PostStatus.ACTIVE));
         }
         given(postRepository.findAll()).willReturn(posts);
 
@@ -143,7 +143,7 @@ class PostServiceTest {
 
         given(postRepository.findById(any(Integer.class))).willReturn(postMapper.map(expectedResult));
 
-        given(labelRepository.findByPostId(any(Integer.class))).willReturn(expectedLabels.stream()
+        given(labelRepository.findAllByPostId(any(Integer.class))).willReturn(expectedLabels.stream()
             .map(labelMapper::map)
             .toList());
 

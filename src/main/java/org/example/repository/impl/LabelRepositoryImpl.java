@@ -32,7 +32,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             }
             return labels;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
@@ -52,7 +52,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             }
             return null;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
@@ -81,7 +81,7 @@ public class LabelRepositoryImpl implements LabelRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
         return Label.builder()
             .id(id)
@@ -101,7 +101,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             preparedStatement.setInt(2, entity.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
         return entity;
     }
@@ -116,7 +116,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             stmtDeleteLabel.setInt(1, id);
             stmtDeleteLabel.execute();
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
@@ -139,11 +139,11 @@ public class LabelRepositoryImpl implements LabelRepository {
                 return null;
             }
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
-    public List<Label> findByPostId(Integer postId) {
+    public List<Label> findAllByPostId(Integer postId) {
         var sql = "SELECT Label.* FROM Label JOIN PostLabel ON PostLabel.label_id = Label.id WHERE PostLabel.Post_id = ?";
         var labels = new ArrayList<Label>();
 
@@ -161,7 +161,7 @@ public class LabelRepositoryImpl implements LabelRepository {
             }
             return labels;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 }

@@ -33,15 +33,14 @@ public class PostRepositoryImpl implements PostRepository {
                 posts.add(
                     new Post(
                         resultSet.getInt("id"),
-                        resultSet.getTimestamp("created").toLocalDateTime(),
+                        resultSet.getInt("writer_id"), resultSet.getTimestamp("created").toLocalDateTime(),
                         resultSet.getTimestamp("updated").toLocalDateTime(),
-                        resultSet.getInt("writer_id"),
                         resultSet.getString("content"),
                         PostStatus.valueOf(resultSet.getString("status"))));
             }
             return posts;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
@@ -58,15 +57,14 @@ public class PostRepositoryImpl implements PostRepository {
             if (resultSet.next()) {
                 return new Post(
                     resultSet.getInt("id"),
-                    resultSet.getTimestamp("created").toLocalDateTime(),
+                    resultSet.getInt("writer_id"), resultSet.getTimestamp("created").toLocalDateTime(),
                     resultSet.getTimestamp("updated").toLocalDateTime(),
-                    resultSet.getInt("writer_id"),
                     resultSet.getString("content"),
                     PostStatus.valueOf(resultSet.getString("status")));
             }
             return null;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
@@ -101,7 +99,7 @@ public class PostRepositoryImpl implements PostRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
         return Post.builder()
             .id(postId)
@@ -128,7 +126,7 @@ public class PostRepositoryImpl implements PostRepository {
             preparedStatement.setInt(5, entity.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
         return entity;
     }
@@ -143,12 +141,12 @@ public class PostRepositoryImpl implements PostRepository {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
     @Override
-    public List<Post> findByLabelId(Integer labelId) {
+    public List<Post> findAllByLabelId(Integer labelId) {
         var sql = "SELECT Post.* FROM Post JOIN PostLabel ON PostLabel.post_id = Post.id WHERE PostLabel.label_id = ?";
         var posts = new ArrayList<Post>();
 
@@ -162,20 +160,19 @@ public class PostRepositoryImpl implements PostRepository {
                 posts.add(
                     new Post(
                         resultSet.getInt("id"),
-                        resultSet.getTimestamp("updated").toLocalDateTime(),
+                        resultSet.getInt("writer_id"), resultSet.getTimestamp("updated").toLocalDateTime(),
                         resultSet.getTimestamp("created").toLocalDateTime(),
-                        resultSet.getInt("writer_id"),
                         resultSet.getString("content"),
                         PostStatus.valueOf(resultSet.getString("status"))));
             }
             return posts;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
     @Override
-    public List<Post> findByWriterId(Integer writerId) {
+    public List<Post> findAllByWriterId(Integer writerId) {
         var sql = "SELECT Post.* FROM Post JOIN Writer ON Writer.id = Post.writer_id WHERE Writer.id = ?";
         var posts = new ArrayList<Post>();
 
@@ -189,15 +186,14 @@ public class PostRepositoryImpl implements PostRepository {
                 posts.add(
                     new Post(
                         resultSet.getInt("id"),
-                        resultSet.getTimestamp("updated").toLocalDateTime(),
+                        resultSet.getInt("writer_id"), resultSet.getTimestamp("updated").toLocalDateTime(),
                         resultSet.getTimestamp("created").toLocalDateTime(),
-                        resultSet.getInt("writer_id"),
                         resultSet.getString("content"),
                         PostStatus.valueOf(resultSet.getString("status"))));
             }
             return posts;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 }

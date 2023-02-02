@@ -4,7 +4,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import org.example.domain.Label;
 import org.example.dto.LabelDto;
-import org.example.dto.PostDto;
 
 @RequiredArgsConstructor
 public class LabelDtoMapper implements Mapper<Label, LabelDto> {

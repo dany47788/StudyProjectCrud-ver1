@@ -58,12 +58,12 @@ public class LabelServiceTest {
         var expectedPosts = new ArrayList<Post>();
 
         expectedPosts.add(new Post(
-            1, LocalDateTime.now(), LocalDateTime.now(), 1,
+            1, 1, LocalDateTime.now(), LocalDateTime.now(),
             "123", PostStatus.ACTIVE));
 
         given(labelRepository.findById(any(Integer.class))).willReturn(expectedLabel);
 
-        given(postRepository.findByLabelId(any(Integer.class))).willReturn(expectedPosts);
+        given(postRepository.findAllByLabelId(any(Integer.class))).willReturn(expectedPosts);
 
         var expectedResult = labelDtoMapper.map(expectedLabel);
 
@@ -104,7 +104,7 @@ public class LabelServiceTest {
 
         expectedDto.setPosts(expectedPosts);
 
-        given(postRepository.findByLabelId(any(Integer.class)))
+        given(postRepository.findAllByLabelId(any(Integer.class)))
             .willReturn(expectedPosts.stream()
                 .map(postMapper::map).toList());
 

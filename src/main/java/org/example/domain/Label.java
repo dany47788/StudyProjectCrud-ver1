@@ -3,7 +3,6 @@ package org.example.domain;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.example.dto.PostDto;
 
 import java.util.ArrayList;
 import java.util.List;

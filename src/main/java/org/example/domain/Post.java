@@ -21,8 +21,8 @@ public class Post {
     private final PostStatus postStatus;
     private final List<Label> labels;
 
-    public Post(Integer id, LocalDateTime created, LocalDateTime updated,
-                Integer writerId, String content, PostStatus postStatus) {
+    public Post(Integer id, Integer writerId, LocalDateTime created, LocalDateTime updated,
+                String content, PostStatus postStatus) {
         this(id, created, updated, writerId, content, postStatus, new ArrayList<>());
     }
 }

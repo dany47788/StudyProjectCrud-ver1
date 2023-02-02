@@ -33,7 +33,7 @@ public class WriterRepositoryImpl implements WriterRepository {
             }
             return writers;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
@@ -55,7 +55,7 @@ public class WriterRepositoryImpl implements WriterRepository {
             }
             return null;
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 
@@ -84,7 +84,7 @@ public class WriterRepositoryImpl implements WriterRepository {
                 }
             }
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
         return Writer.builder()
             .id(writerId)
@@ -106,7 +106,7 @@ public class WriterRepositoryImpl implements WriterRepository {
             preparedStatement.setInt(3, entity.getId());
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
         return entity;
     }
@@ -121,7 +121,7 @@ public class WriterRepositoryImpl implements WriterRepository {
             preparedStatement.setInt(1, id);
             preparedStatement.execute();
         } catch (SQLException e) {
-            throw new AppException(AppStatusCode.SQL_EXCEPTION);
+            throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
     }
 }

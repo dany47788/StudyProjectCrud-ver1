@@ -7,5 +7,5 @@ import java.util.List;
 public interface LabelRepository extends CrudRepository<Label, Integer> {
     Label findByName(String name);
 
-    List<Label> findByPostId(Integer postId);
+    List<Label> findAllByPostId(Integer postId);
 }

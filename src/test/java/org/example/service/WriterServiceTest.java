@@ -1,6 +1,5 @@
 package org.example.service;
 
-import org.example.domain.Post;
 import org.example.domain.Writer;
 import org.example.domain.enums.PostStatus;
 import org.example.dto.PostDto;
@@ -79,7 +78,7 @@ class WriterServiceTest {
 
         given(writerRepository.findById(any(Integer.class))).willReturn(writerMapper.map(expectedResult));
 
-        given(postRepository.findByWriterId(any(Integer.class))).willReturn(expectedPosts.stream()
+        given(postRepository.findAllByWriterId(any(Integer.class))).willReturn(expectedPosts.stream()
             .map(postMapper::map)
             .toList());
 
@@ -131,14 +130,15 @@ class WriterServiceTest {
 
     @Test
     void create() {
-        var posts = new ArrayList<Post>();
+        var posts = new ArrayList<PostDto>();
 
         for (int i = 1; i < 4; i++) {
-            posts.add(new Post(i, LocalDateTime.now(), LocalDateTime.now(),
-                i, "test" + i, PostStatus.ACTIVE));
+            posts.add(new PostDto(i, i, LocalDateTime.now(), LocalDateTime.now(), "test" + i, PostStatus.ACTIVE));
         }
 
         var writerDto = new WriterDto(1, "test", "test");
+        writerDto.setPosts(posts);
+
         var extendedResult = writerMapper.map(writerDto);
 
         given(writerRepository.create(extendedResult)).willReturn(extendedResult);

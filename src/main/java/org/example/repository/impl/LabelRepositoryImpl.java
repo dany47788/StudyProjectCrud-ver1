@@ -15,6 +15,7 @@ import java.util.List;
 
 @Slf4j
 public class LabelRepositoryImpl implements LabelRepository {
+
     @Override
     public List<Label> findAll() {
         var sql = "SELECT * FROM Label";
@@ -30,6 +31,7 @@ public class LabelRepositoryImpl implements LabelRepository {
                     new Label(resultSet.getInt("id"),
                         resultSet.getString("name")));
             }
+
             return labels;
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
@@ -50,6 +52,7 @@ public class LabelRepositoryImpl implements LabelRepository {
                 return new Label(resultSet.getInt("id"),
                     resultSet.getString("name"));
             }
+
             return null;
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
@@ -72,6 +75,7 @@ public class LabelRepositoryImpl implements LabelRepository {
                 log.info("Error while creating");
                 throw new AppException(AppStatusCode.SQL_EXCEPTION);
             }
+
             try (ResultSet keys = preparedStatement.getGeneratedKeys()) {
                 if (keys.next()) {
                     id = keys.getInt(1);
@@ -83,6 +87,7 @@ public class LabelRepositoryImpl implements LabelRepository {
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
+
         return Label.builder()
             .id(id)
             .name(entity.getName())
@@ -103,6 +108,7 @@ public class LabelRepositoryImpl implements LabelRepository {
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
+
         return entity;
     }
 
@@ -159,6 +165,7 @@ public class LabelRepositoryImpl implements LabelRepository {
                     new Label(resultSet.getInt("id"),
                         resultSet.getString("name")));
             }
+
             return labels;
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);

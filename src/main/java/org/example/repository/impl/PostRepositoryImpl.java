@@ -38,6 +38,7 @@ public class PostRepositoryImpl implements PostRepository {
                         resultSet.getString("content"),
                         PostStatus.valueOf(resultSet.getString("status"))));
             }
+
             return posts;
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
@@ -62,6 +63,7 @@ public class PostRepositoryImpl implements PostRepository {
                     resultSet.getString("content"),
                     PostStatus.valueOf(resultSet.getString("status")));
             }
+
             return null;
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
@@ -90,6 +92,7 @@ public class PostRepositoryImpl implements PostRepository {
                 log.info("Error while creating");
                 throw new AppException(AppStatusCode.SQL_EXCEPTION);
             }
+
             try (ResultSet keys = preparedStatement.getGeneratedKeys()) {
                 if (keys.next()) {
                     postId = keys.getInt(1);
@@ -101,6 +104,7 @@ public class PostRepositoryImpl implements PostRepository {
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
+
         return Post.builder()
             .id(postId)
             .created(entity.getCreated())
@@ -128,6 +132,7 @@ public class PostRepositoryImpl implements PostRepository {
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
         }
+
         return entity;
     }
 
@@ -165,6 +170,7 @@ public class PostRepositoryImpl implements PostRepository {
                         resultSet.getString("content"),
                         PostStatus.valueOf(resultSet.getString("status"))));
             }
+
             return posts;
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);
@@ -191,6 +197,7 @@ public class PostRepositoryImpl implements PostRepository {
                         resultSet.getString("content"),
                         PostStatus.valueOf(resultSet.getString("status"))));
             }
+
             return posts;
         } catch (SQLException e) {
             throw new AppException(AppStatusCode.SQL_EXCEPTION, e);

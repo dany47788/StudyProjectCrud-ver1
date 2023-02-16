@@ -7,6 +7,7 @@ import org.example.dto.LabelDto;
 
 @RequiredArgsConstructor
 public class LabelDtoMapper implements Mapper<Label, LabelDto> {
+
     @Setter
     private PostDtoMapper postDtoMapper;
 

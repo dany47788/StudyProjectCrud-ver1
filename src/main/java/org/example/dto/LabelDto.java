@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 @Data
 public class LabelDto {
+
     private Integer id;
     private String name;
     private List<PostDto> posts;

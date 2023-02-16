@@ -8,6 +8,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class LabelController {
+
     private final LabelService labelService;
 
     public List<LabelDto> findAll() {
@@ -33,6 +34,4 @@ public class LabelController {
     public LabelDto findByName(String name) {
         return labelService.findByName(name);
     }
-
-
 }

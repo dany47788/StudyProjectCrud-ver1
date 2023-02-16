@@ -9,7 +9,6 @@ import java.sql.SQLException;
 
 public class JdbcUtils {
 
-
     private static final String URL = ResourceReader.readApplicationProperties("db.url");
     private static final String USERNAME = ResourceReader.readApplicationProperties("db.username");
     private static final String PASSWORD = ResourceReader.readApplicationProperties("db.password");
@@ -21,6 +20,7 @@ public class JdbcUtils {
         try {
             Driver driver = new com.mysql.cj.jdbc.Driver();
             DriverManager.registerDriver(driver);
+
             return DriverManager.getConnection(URL, USERNAME, PASSWORD);
         } catch (SQLException e) {
             throw new RuntimeException(e);

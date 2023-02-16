@@ -16,6 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 public class PostService {
+
     private final PostRepositoryImpl postRepositoryImpl;
     private final LabelRepositoryImpl labelRepositoryImpl;
     private final LabelDtoMapper labelDtoMapper;

@@ -8,6 +8,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class WriterController {
+
     private final WriterService writerService;
 
     public List<WriterDto> findAll() {

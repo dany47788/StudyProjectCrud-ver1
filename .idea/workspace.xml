@@ -6,23 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5f9aa858-e105-475e-bdcf-8bc4cac4821c" name="Changes" comment="test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/Main.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/LabelController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/LabelController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/PostController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/PostController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/controller/WriterController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/controller/WriterController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/exception/AppException.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/exception/AppException.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/model/AppStatusCode.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/model/AppStatusCode.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/LabelRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/LabelRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/PostRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/PostRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/LabelRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/LabelRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/PostRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/PostRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/WriterRepositoryImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/repository/impl/WriterRepositoryImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/LabelService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/LabelService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/PostService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/PostService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/service/WriterService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/service/WriterService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/LabelServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/LabelServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/PostServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/PostServiceTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/example/service/WriterServiceTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/example/service/WriterServiceTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/example/utils/ResourceReader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/example/utils/ResourceReader.java" afterDir="false" />
     </list>
     <list id="552b34a9-6702-46b0-9a16-98e7e48ab2fa" name="New changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -179,11 +163,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.org.example.service in StudyProjectCrud-master" />
+        <item itemvalue="JUnit.WriterServiceTest.testIFindById_Found" />
         <item itemvalue="JUnit.WriterServiceTest.create" />
         <item itemvalue="JUnit.All in StudyProjectCrud-master" />
         <item itemvalue="Application.Main" />
-        <item itemvalue="JUnit.org.example.service in StudyProjectCrud-master" />
-        <item itemvalue="JUnit.WriterServiceTest.testIFindById_Found" />
       </list>
     </recent_temporary>
   </component>
@@ -209,7 +193,10 @@
       <workItem from="1675160973673" duration="9000" />
       <workItem from="1675161628768" duration="2876000" />
       <workItem from="1675238250345" duration="1841000" />
-      <workItem from="1675344694656" duration="3388000" />
+      <workItem from="1675344694656" duration="4424000" />
+      <workItem from="1675418880121" duration="3149000" />
+      <workItem from="1675673241678" duration="1644000" />
+      <workItem from="1675762532714" duration="1194000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1672045602609</created>
@@ -372,7 +359,14 @@
       <option name="project" value="LOCAL" />
       <updated>1675238897887</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="test">
+      <created>1675348497370</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1675348497370</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

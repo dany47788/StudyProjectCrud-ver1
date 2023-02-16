@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 @Data
 public class Writer {
+
     private final Integer id;
     private final String firstName;
     private final String lastName;

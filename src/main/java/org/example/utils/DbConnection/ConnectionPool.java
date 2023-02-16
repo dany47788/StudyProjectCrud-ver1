@@ -6,6 +6,7 @@ import org.example.utils.ResourceReader;
 import javax.sql.DataSource;
 
 public class ConnectionPool {
+
     private static final String URL = ResourceReader.readApplicationProperties("db.url");
     private static final String USERNAME = ResourceReader.readApplicationProperties("db.username");
     private static final String PASSWORD = ResourceReader.readApplicationProperties("db.password");

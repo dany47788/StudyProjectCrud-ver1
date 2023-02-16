@@ -8,6 +8,7 @@ import java.util.List;
 
 @AllArgsConstructor
 public class PostController {
+
     private final PostService postService;
 
     public List<PostDto> findAll() {
@@ -29,6 +30,4 @@ public class PostController {
     public void deleteById(Integer id) {
         postService.deleteById(id);
     }
-
-
 }

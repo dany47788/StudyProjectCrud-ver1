@@ -6,6 +6,7 @@ import org.example.dto.WriterDto;
 
 @RequiredArgsConstructor
 public class WriterDtoMapper implements Mapper<Writer, WriterDto> {
+
     private final PostDtoMapper postDtoMapper;
 
     @Override

@@ -13,6 +13,7 @@ import java.util.List;
 @Data
 @Builder
 public class PostDto {
+
     private Integer id;
     private Integer writerId;
     private LocalDateTime created;

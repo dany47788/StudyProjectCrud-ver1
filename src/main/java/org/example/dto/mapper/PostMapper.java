@@ -6,6 +6,7 @@ import org.example.dto.PostDto;
 
 @RequiredArgsConstructor
 public class PostMapper implements Mapper<PostDto, Post> {
+
     private final LabelMapper labelMapper;
 
     @Override

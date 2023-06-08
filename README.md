@@ -10,8 +10,3 @@ I tryed to realized MVC pattern, so i created 3 package: repository, controller 
 In dto package i created simple data transfer objects and mappers for them.
 
 The service layer is covered with tests, i used junit + Mockito.
-
-P.S. I know about @Builder.Default now, but i didn't use it here. Instead, I created a constructor with a default value and used it where needed.
-     I know about Properties class, i just tryed created property reader by myself.
-     
-Thank you for watching!
